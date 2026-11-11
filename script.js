@@ -58,10 +58,60 @@ async function loadShowDetails(id) {
     }
 
     const show = await res.json();
-    console.log(show);
+    displayDetails(show);
   } catch (error) {
     console.error(error);
   }
+}
+
+function displayDetails(show) {
+  // Clear previous details
+  showDetails.innerHTML = "";
+
+  // Create heading with show name
+  const heading = document.createElement("h2");
+  heading.textContent = show.name;
+  showDetails.appendChild(heading);
+
+  // Handle poster image
+  if (show.image && show.image.medium) {
+    const img = document.createElement("img");
+    img.src = show.image.medium;
+    img.alt = `Poster for ${show.name}`;
+    showDetails.appendChild(img);
+  } else {
+    const msg = document.createElement("p");
+    msg.textContent = "No poster available";
+    showDetails.appendChild(msg);
+  }
+
+  // Display summary using innerHTML to render the HTML tags
+  const summaryContainer = document.createElement("p");
+  summaryContainer.innerHTML = show.summary;
+  showDetails.appendChild(summaryContainer);
+
+  // Create container for metadata
+  const metadata = document.createElement("p");
+
+  // Genres: join array or use fallback for empty/missing
+  const genresText = show.genres && show.genres.length > 0 
+    ? show.genres.join(", ") 
+    : "Not listed";
+  metadata.textContent = `Genres: ${genresText}`;
+
+  // Premiere date with fallback
+  const premieredText = show.premiered || "Unknown";
+  metadata.textContent += ` | Premiered: ${premieredText}`;
+
+  // Status with fallback
+  const statusText = show.status || "Not rated";
+  metadata.textContent += ` | Status: ${statusText}`;
+
+  // Rating with fallback for null (treated as Not rated)
+  const ratingText = show.rating?.average || "Not rated";
+  metadata.textContent += ` | Rating: ${ratingText}`;
+
+  showDetails.appendChild(metadata);
 }
 
 showSelect.addEventListener("change", function () {
