@@ -1,5 +1,10 @@
 const showSelect = document.getElementById("show-select");
 const showDetails = document.getElementById("show-details");
+const messageEl = document.getElementById("message");
+
+function displayMessage(msg) {
+  messageEl.textContent = msg || "";
+}
 
 async function fillDropdown(shows) {
   // Sort by rating.average, highest first (null ratings count as 0)
@@ -31,6 +36,7 @@ async function fillDropdown(shows) {
 }
 
 async function loadShows() {
+  messageEl.textContent = "Loading top-rated shows...";
   const url = "https://api.tvmaze.com/shows?page=0";
 
   try {
@@ -42,25 +48,37 @@ async function loadShows() {
 
     const shows = await res.json();
     fillDropdown(shows);
+    messageEl.textContent = "";
   } catch (error) {
     console.error(error);
+    messageEl.textContent = error.message || "Failed to load shows";
   }
 }
 
 async function loadShowDetails(id) {
+  messageEl.textContent = "Loading show details...";
   const url = `https://api.tvmaze.com/shows/${id}`;
 
   try {
     const res = await fetch(url);
 
     if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error("Show not found");
+      }
       throw new Error(`Request failed with status ${res.status}`);
     }
 
     const show = await res.json();
     displayDetails(show);
+    messageEl.textContent = "";
   } catch (error) {
     console.error(error);
+    if (error.message === "Show not found") {
+      messageEl.textContent = error.message;
+    } else {
+      messageEl.textContent = error.message || "Failed to load show details";
+    }
   }
 }
 
@@ -94,8 +112,8 @@ function displayDetails(show) {
   const metadata = document.createElement("p");
 
   // Genres: join array or use fallback for empty/missing
-  const genresText = show.genres && show.genres.length > 0 
-    ? show.genres.join(", ") 
+  const genresText = show.genres && show.genres.length > 0
+    ? show.genres.join(", ")
     : "Not listed";
   metadata.textContent = `Genres: ${genresText}`;
 
