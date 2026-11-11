@@ -1,0 +1,367 @@
+/* TV Show Finder - Main Stylesheet */
+
+/* ===========================
+   Variables & Reset
+   =========================== */
+
+:root {
+  --bg-color: #1a1a2e;
+  --card-bg: #16213e;
+  --text-color: #e0e0e0;
+  --heading-color: #ffffff;
+  --primary-color: #7c3aed;
+  --primary-hover: #8b5cf6;
+  --border-color: #2d3748;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --radius: 16px;
+  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.8;
+  font-size: 16px;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+/* ===========================
+   Layout Container
+   =========================== */
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===========================
+   Header Section
+   =========================== */
+
+h1 {
+  text-align: center;
+  color: var(--heading-color);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   Label & Select
+   =========================== */
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--heading-color);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#show-select {
+  width: 100%;
+  max-width: 450px;
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  font-family: inherit;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%237c3aed' d='M7 11L2 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  padding-right: 4rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#show-select:hover {
+  border-color: var(--primary-color);
+  background-color: #2d3748;
+}
+
+#show-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}
+
+#show-select option {
+  padding: 0.75rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* ===========================
+   Card Styles
+   =========================== */
+
+#show-details {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin: 3rem auto;
+  max-width: 800px;
+  border: 1px solid var(--border-color);
+}
+
+/* ===========================
+   Details Content Container (flex layout)
+   =========================== */
+
+.details-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.poster-container, .info-container {
+  flex: 1;
+  min-width: 300px;
+  max-width: 45%;
+}
+
+/* ===========================
+   Poster Image
+   =========================== */
+
+#show-details img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* Message when no poster is available */
+#show-details p:first-of-type:not(.meta-info) {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* ===========================
+   Heading (Show Name)
+   =========================== */
+
+#show-details h2 {
+  color: var(--heading-color);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   Summary Paragraph
+   =========================== */
+
+#show-details p.summary {
+  color: #d1d5db;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 0.25rem;
+}
+
+/* Style for HTML-formatted summary (already has <p> tags) */
+#show-details p.summary p {
+  margin-bottom: 1rem;
+  color: #d1d5db;
+}
+
+/* ===========================
+   Metadata Line
+   =========================== */
+
+.meta-info {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.meta-info span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 2rem;
+}
+
+.meta-info strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+/* ===========================
+   Message Area
+   =========================== */
+
+#message {
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  text-align: center;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+/* Loading message */
+#message.loading {
+  background-color: rgba(22, 33, 62, 0.8);
+  color: #7dd3fc;
+  border: 1px solid #7dd3fc;
+  box-shadow: 0 0 15px rgba(125, 211, 252, 0.3);
+}
+
+/* Error message */
+#message.error {
+  background-color: rgba(198, 30, 30, 0.15);
+  color: #fca5a5;
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+/* Success/informational message */
+#message.success {
+  background-color: rgba(22, 163, 74, 0.15);
+  color: #86efac;
+  border: 1px solid #22c55e;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: 2rem 0.75rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  #show-select {
+    max-width: 100%;
+  }
+
+  #show-details {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  #show-details h2 {
+    font-size: 1.75rem;
+  }
+
+  .details-content {
+    gap: 2rem;
+  }
+
+  .poster-container, .info-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  #message {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .meta-info span {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-right: 0;
+  }
+
+  #show-details img {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 1.5rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  #show-details {
+    padding: 1.25rem;
+  }
+
+  #show-details h2 {
+    font-size: 1.5rem;
+  }
+
+  .meta-info span {
+    font-size: 0.875rem;
+  }
+}
+
+/* ===========================
+   Accessibility
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   Print Styles
+   =========================== */
+
+@media print {
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+
+  #show-details {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  #message {
+    display: none;
+  }
+}
